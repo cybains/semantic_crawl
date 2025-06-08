@@ -1,0 +1,12 @@
+
+---
+
+### 📋 `requirements.txt`
+
+```txt
+transformers
+sentence-transformers
+faiss-cpu
+requests
+beautifulsoup4
+tqdm
