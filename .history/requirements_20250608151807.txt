@@ -1,4 +1,6 @@
 
+
+```txt
 transformers
 sentence-transformers
 faiss-cpu
