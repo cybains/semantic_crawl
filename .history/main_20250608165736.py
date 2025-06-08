@@ -1,5 +1,5 @@
-from crawler import get_links_and_text
-from save import save_to_json
+from get_links_and_text import get_links_and_text
+from save_to_json import save_result
 from urllib.parse import urljoin, urlparse
 import time
 
@@ -15,7 +15,7 @@ while to_visit and count < MAX_PAGES:
         continue
 
     try:
-        paragraphs, links, title, breadcrumbs = get_links_and_text.get_links_and_text(current_url, domain=domain)
+        paragraphs, links, title, breadcrumbs = get_links_and_text(current_url, domain=domain)
     except Exception as e:
         print(f"❌ Error crawling {current_url}: {e}")
         continue
@@ -26,7 +26,7 @@ while to_visit and count < MAX_PAGES:
     print(f"🏷 Title: {title}")
     print(f"📍 Breadcrumbs: {breadcrumbs}")
 
-    save_to_json.save_result(current_url, paragraphs, links, title=title, breadcrumbs=breadcrumbs)
+    save_result(current_url, paragraphs, links, title=title, breadcrumbs=breadcrumbs)
     visited.add(current_url)
     count += 1
 
@@ -36,4 +36,4 @@ while to_visit and count < MAX_PAGES:
         if domain in parsed.netloc and full_url not in visited and full_url not in to_visit:
             to_visit.append(full_url)
 
-    time.sleep(1)  # Be polite
+    time.sleep(1)  # Be polite and avoid hammering the server

@@ -1,5 +1,5 @@
-from crawler import get_links_and_text
-from save import save_to_json
+from crawler.get_links_and_text import get_links_and_text
+from save.save_to_json import save_result
 from urllib.parse import urljoin, urlparse
 import time
 
@@ -15,7 +15,7 @@ while to_visit and count < MAX_PAGES:
         continue
 
     try:
-        paragraphs, links, title, breadcrumbs = get_links_and_text.get_links_and_text(current_url, domain=domain)
+        paragraphs, links = get_links_and_text(current_url, domain=domain)
     except Exception as e:
         print(f"❌ Error crawling {current_url}: {e}")
         continue
@@ -23,10 +23,8 @@ while to_visit and count < MAX_PAGES:
     print(f"\n✅ Crawled: {current_url}")
     print(f"📝 Extracted {len(paragraphs)} paragraphs")
     print(f"🔗 Found {len(links)} internal links")
-    print(f"🏷 Title: {title}")
-    print(f"📍 Breadcrumbs: {breadcrumbs}")
 
-    save_to_json.save_result(current_url, paragraphs, links, title=title, breadcrumbs=breadcrumbs)
+    save_result(current_url, paragraphs, links)
     visited.add(current_url)
     count += 1
 
