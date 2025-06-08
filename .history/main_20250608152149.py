@@ -1,0 +1,10 @@
+# main.py
+
+from crawler import crawler
+
+if __name__ == "__main__":
+    base_url = "https://example.com"
+    paragraphs, links = crawler.get_links_and_text(base_url, domain="example.com")
+    
+    print(f"\n📝 Extracted {len(paragraphs)} paragraphs from {base_url}")
+    print(f"🔗 Found {len(links)} internal links")
